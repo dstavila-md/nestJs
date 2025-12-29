@@ -27,11 +27,3 @@ export class UsersService {
 
   remove() {}
 }
-
-// findOne(id: number) {
-//   return this.repo.findOneBy({ id });
-// }
-
-//     find(email: string) {
-//   return this.repo.find({ where: { email } });
-// }
