@@ -33,3 +33,9 @@ Content-Type: application/json
 	"email": "test2@example.com",
 	"password": "password111"
 }
+
+### Set a color
+GET http://localhost:3000/auth/colors/red
+
+### Get the color
+GET http://localhost:3000/auth/colors
