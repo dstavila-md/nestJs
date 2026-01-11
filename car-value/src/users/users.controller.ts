@@ -25,6 +25,11 @@ export class UsersController {
     private authService: AuthService,
   ) {}
 
+  @Get('/whoami')
+  whoAmI(@Session() session: any) {
+    return this.userService.findOne(session.userId);
+  }
+
   @Post('signup')
   async createUser(@Body() body: CreateUserDto, @Session() session: any) {
     const user = await this.authService.signup(body.email, body.password);
@@ -38,17 +43,6 @@ export class UsersController {
     session.userId = user.id;
     return user;
   }
-
-  // @Get('/colors/:color')
-  // setColor(@Param('color') color: string, @Session() session: any) {
-  //   session.color = color;
-  //   // return session;
-  // }
-
-  // @Get('/colors')
-  // getColor(@Session() session: any) {
-  //   return session.color;
-  // }
 
   @Get('/:id')
   async findUser(@Param('id') id: string) {
@@ -73,4 +67,15 @@ export class UsersController {
   updateUser(@Param('id') id: string, @Body() body: UpdateUserDto) {
     return this.userService.update(parseInt(id), body);
   }
+
+  // @Get('/colors/:color')
+  // setColor(@Param('color') color: string, @Session() session: any) {
+  //   session.color = color;
+  //   // return session;
+  // }
+
+  // @Get('/colors')
+  // getColor(@Session() session: any) {
+  //   return session.color;
+  // }
 }
