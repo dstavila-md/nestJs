@@ -53,13 +53,29 @@ describe('AuthService', () => {
       service.signin('asdflkj@asdlfkj.com', 'passdflkj'),
     ).rejects.toThrow(NotFoundException);
   });
-});
 
-// import { BadRequestException } from '@nestjs/common';
-// it('throws an error if user signs up with email that is in use', async () => {
-//   fakeUsersService.find = () =>
-//     Promise.resolve([{ id: 1, email: 'a', password: '1' } as User]);
-//   await expect(service.signup('asdf@asdf.com', 'asdf')).rejects.toThrow(
-//     BadRequestException,
-//   );
-// });
+  it('throws if an invalid password is provided', async () => {
+    mockUsersService.find = () =>
+      Promise.resolve([
+        { email: 'test@test.com', password: 'laskdjf' } as User,
+      ]);
+    await expect(
+      service.signin('laskdjf@alskdfj.com', 'password'),
+    ).rejects.toThrow(BadRequestException);
+  });
+
+  it('returns an user if a correct password is provided', async () => {
+    mockUsersService.find = () =>
+      Promise.resolve([
+        {
+          email: 'someEmailstring@test.com',
+          password:
+            'da6399b141eac91e.da0e7804adc7d553a18c3dad5e14e92338e92138862fc1ad985d1bda7c58d08a',
+        } as User,
+      ]);
+    const user = await service.signin('test@test.com', 'mypassword');
+    expect(user).toBeDefined();
+    // const user = await service.signup('test@test.com', 'mypassword');
+    // console.log(user);
+  });
+});
