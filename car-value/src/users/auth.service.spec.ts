@@ -51,10 +51,9 @@ describe('AuthService', () => {
     expect(salt).toBeDefined();
   });
 
-  it('throws an error with user signs up with email taht is in use', async () => {
-    mockUsersService.find = () =>
-      Promise.resolve([{ id: 1, password: '1' } as User]);
-    await expect(service.signup('test@test.com', 'asdf')).rejects.toThrow(
+  it('throws an error if user signs up with email that is in use', async () => {
+    await service.signup('asdf@asdf.com', 'asdf');
+    await expect(service.signup('asdf@asdf.com', 'asdf')).rejects.toThrow(
       BadRequestException,
     );
   });
@@ -66,12 +65,9 @@ describe('AuthService', () => {
   });
 
   it('throws if an invalid password is provided', async () => {
-    mockUsersService.find = () =>
-      Promise.resolve([
-        { email: 'test@test.com', password: 'laskdjf' } as User,
-      ]);
+    await service.signup('laskdjf@alskdfj.com', 'password');
     await expect(
-      service.signin('laskdjf@alskdfj.com', 'password'),
+      service.signin('laskdjf@alskdfj.com', 'laksdlfkj'),
     ).rejects.toThrow(BadRequestException);
   });
 
