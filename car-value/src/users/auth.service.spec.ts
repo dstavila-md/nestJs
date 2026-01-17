@@ -10,10 +10,21 @@ describe('AuthService', () => {
 
   beforeEach(async () => {
     // create a fake copu of the users service
+    const users: User[] = [];
     mockUsersService = {
-      find: () => Promise.resolve([]),
-      create: (email: string, password: string) =>
-        Promise.resolve({ id: 1, email, password } as User),
+      find: (email) => {
+        const filteredUsers = users.filter((user) => user.email === email);
+        return Promise.resolve(filteredUsers);
+      },
+      create: (email: string, password: string) => {
+        const user = {
+          email,
+          password,
+          id: Math.floor(Math.random() * 99999),
+        } as User;
+        users.push(user);
+        return Promise.resolve(user);
+      },
     };
 
     const module = await Test.createTestingModule({
@@ -30,7 +41,7 @@ describe('AuthService', () => {
     expect(service).toBeDefined();
   });
 
-  it(' creates a new user with a salted and hashed password', async () => {
+  it('creates a new user with a salted and hashed password', async () => {
     const user = await service.signup('test@test.com', ' asdf');
 
     expect(user.password).not.toEqual('asdf');
@@ -65,17 +76,8 @@ describe('AuthService', () => {
   });
 
   it('returns an user if a correct password is provided', async () => {
-    mockUsersService.find = () =>
-      Promise.resolve([
-        {
-          email: 'someEmailstring@test.com',
-          password:
-            'da6399b141eac91e.da0e7804adc7d553a18c3dad5e14e92338e92138862fc1ad985d1bda7c58d08a',
-        } as User,
-      ]);
+    await service.signup('test@test.com', 'mypassword');
     const user = await service.signin('test@test.com', 'mypassword');
     expect(user).toBeDefined();
-    // const user = await service.signup('test@test.com', 'mypassword');
-    // console.log(user);
   });
 });
