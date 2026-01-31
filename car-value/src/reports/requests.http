@@ -2,8 +2,8 @@ POST http://localhost:3000/reports
 content-type: application/json
 
 {
-	"make": "Toyota",
-	"model": "Corolla",
+	"make": "Honda",
+	"model": "Prelude",
 	"year":2000,
 	"mileage":100000,
 	"lng":0,
