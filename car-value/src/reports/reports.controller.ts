@@ -27,5 +27,7 @@ export class ReportsController {
   }
 
   @Patch('/:id')
-  approveReport(@Param() id: string, @Body() body: ApproveReportDto) {}
+  approveReport(@Param('id') id: string, @Body() body: ApproveReportDto) {
+    return this.reportService.changeApproval(id, body.approved);
+  }
 }

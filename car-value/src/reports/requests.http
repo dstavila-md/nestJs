@@ -1,12 +1,21 @@
+### Create a new report
 POST http://localhost:3000/reports
 content-type: application/json
 
 {
 	"make": "Honda",
-	"model": "Prelude",
+	"model": "CR-V",
 	"year":2000,
 	"mileage":100000,
 	"lng":0,
 	"lat":0,
 	"price":50000
+}
+
+### Approve an existing report
+PATCH http://localhost:3000/reports/5
+Content-Type: application/json
+
+{
+	"approved": true
 }
