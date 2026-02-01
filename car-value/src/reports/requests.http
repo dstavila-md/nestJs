@@ -4,7 +4,7 @@ content-type: application/json
 
 {
 	"make": "Honda",
-	"model": "CR-V",
+	"model": "NX",
 	"year":2000,
 	"mileage":100000,
 	"lng":0,
@@ -13,7 +13,7 @@ content-type: application/json
 }
 
 ### Approve an existing report
-PATCH http://localhost:3000/reports/5
+PATCH http://localhost:3000/reports/6
 Content-Type: application/json
 
 {

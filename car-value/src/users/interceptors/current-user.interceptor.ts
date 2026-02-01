@@ -5,7 +5,6 @@ import {
   Injectable,
 } from '@nestjs/common';
 import { UsersService } from '../users.service';
-import { OneToMany } from 'typeorm';
 
 @Injectable()
 export class CurrentUserInterceptor implements NestInterceptor {
