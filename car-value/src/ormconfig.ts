@@ -25,6 +25,7 @@ const configGenerator = () => {
         type: 'sqlite',
         database: 'test.sqlite',
         entities: [User, Report],
+        migrationsRun: true,
       } as DataSourceOptions;
     case 'production':
     default:
