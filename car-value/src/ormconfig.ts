@@ -4,6 +4,10 @@ import { Report } from './reports/report.entity';
 
 const dbConfig = {
   synchronize: false,
+  migrations: [__dirname + '/migrations/**/*{.js,.ts}'],
+  cli: {
+    migrationsDir: 'src/migrations',
+  },
 };
 
 const configGenerator = () => {
