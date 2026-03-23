@@ -33,7 +33,7 @@ describe('Authentication system', () => {
   });
 
   it('signup as a new user then get the currently logged in user', async () => {
-    const testEmail = 'unique@test.com';
+    const testEmail = 'unique2@test.com';
 
     const res = await request(app.getHttpServer())
       .post('/auth/signup')
