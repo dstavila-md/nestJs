@@ -4,6 +4,7 @@ import { Report } from './reports/report.entity';
 
 const dbConfig = {
   synchronize: false,
+  entities: [User, Report],
   migrations: [__dirname + '/migrations/**/*{.js,.ts}'],
   cli: {
     migrationsDir: 'src/migrations',
@@ -17,17 +18,24 @@ const configGenerator = () => {
         ...dbConfig,
         type: 'sqlite',
         database: 'db.sqlite',
-        entities: [User, Report],
       } as DataSourceOptions;
     case 'test':
       return {
         ...dbConfig,
         type: 'sqlite',
         database: 'test.sqlite',
-        entities: [User, Report],
         migrationsRun: true,
       } as DataSourceOptions;
     case 'production':
+      return {
+        ...dbConfig,
+        type: 'postgres',
+        url: process.env.DATABASE_URL,
+        migrationsRun: true,
+        ssl: {
+          rejectUnauthorized: false,
+        },
+      } as DataSourceOptions;
     default:
       throw new Error(
         'Unknown environment, unable to determine database configuration',
